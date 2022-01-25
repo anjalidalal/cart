@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRODUCTS DATA</title>
+    <style>
+       *{
+          margin: 0%;
+       }
+       body{
+          box-sizing: border-box;
+       }
+       .main{
+          background-color: rgb(165, 196, 196);
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+       }
+       #data{
+          display: grid;
+          grid-template-columns: auto auto auto;
+          gap: 5px;
+          margin:30px;
+       }
+       img{
+          width: 100%;
+       }
+    </style>
+</head>
+<body>
+   <div class="main">
+      <h1>Products Inventory</h1>
+    <div id="data"></div>
+   </div>
+    
+    <script>
+        // STEP 1 - Create an array of objects
+        let shoesArr = [
+            {
+               brandName : "Nike",
+               price : "₹3795",
+               image : "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/12408280/2020/10/6/b9ff60b7-d4a4-4b0e-ab8f-277b11c925851601960373147-Nike-Boys-White-COURT-ROYALE-Sneakers-3321601960371644-1.jpg" 
+            },
+            {
+               brandName : "Adidas",
+               price : "₹13999",
+               image : "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/14783606/2021/11/24/2e46792d-9919-4194-9baf-e2ce21f0e09a1637730616410-ADIDAS-Women-White--Silver-Toned-Racer-TR21-Shoes-1821637730-1.jpg" 
+            },
+            {
+               brandName : "Puma",
+               price : "₹3849",
+               image : "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/15503422/2021/9/17/c8f1f900-6f6d-4266-8397-78d0dd0f6c531631861858440CasualShoes4.jpg" 
+            },
+            {
+               brandName : "Redtape",
+               price : "₹1649",
+               image : "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/15911770/2021/11/3/65df4ffb-7965-4d02-be5a-368f906f55901635948398810-Red-Tape-Women-Off-White-Mesh-Walking-Non-Marking-Shoes-2521-3.jpg" 
+            },
+            {
+               brandName : "Convetrse",
+               price : "₹4999",
+               image : "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/14764804/2021/9/27/e59697be-52a4-4fcf-9872-6670cb2ecad21632731251293-Converse-Women-Pink--White-Chuck-Taylor-All-Star-Move-Sneake-1.jpg" 
+            },
+            {
+               brandName : "Rodster",
+               price : "₹2000",
+               image : "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/12795960/2021/3/3/2f3ca88f-6ea5-4b29-803f-7defad8ef5661614767924489-Roadster-Women-Casual-Shoes-3661614767923241-1.jpg" 
+            },
+            {
+               brandName : "Reebok",
+               price : "₹7999",
+               image : "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/14783488/2021/8/16/cf90010f-9983-4fd7-904c-c0d5dee7ca5f1629090837331-Reebok-Women-Sports-Shoes-461629090837048-1.jpg" 
+            }
+        ];
+
+    // STEP 2 - Convert array of objects into json format 
+        let shoesJson = JSON.stringify(shoesArr);
+    
+     // STEP 3 - Store above data into localstorage
+        localStorage.setItem("myShoes", shoesJson)
+ 
+     // STEP 4 - Display on webpage
+        let myShoes = localStorage.getItem("myShoes");
+
+     // STEP 5 - Convert into operatable format, Objects!
+        myShoes = JSON.parse(myShoes);
+
+        function showShoes () {
+            let dataDiv = document.getElementById("data");
+            myShoes.forEach(function (shoes) {
+                console.log(shoes.brandName)
+                let div = document.createElement("div");
+
+                
+                let p_name = document.createElement("p");
+                p_name.innerText = shoes.brandName;
+
+
+                let p_price = document.createElement("p");
+                p_price.innerText = shoes.price;
+
+                let image = document.createElement("img");
+                image.src = shoes.image;
+
+                let btn = document.createElement("button");
+                btn.innerText = "Add To Cart";
+                btn.onclick = function () {
+                   addtoCart(shoes);
+                }
+
+                div.append(image, p_name, p_price, btn);
+                div.style.width = "60%"
+
+                dataDiv.append(div)
+            });
+        }
+        showShoes();
+
+        localStorage.setItem("cart", JSON.stringify([]))
+        function addtoCart(s) {
+           let cartData = JSON.parse(localStorage.getItem("cart"));
+           cartData.push()
+        }
+    </script>
+</body>
+</html>
