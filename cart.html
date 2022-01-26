@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CART PAGE</title>
+    <style>
+        * {
+            margin: 0%;
+        }
+
+        body {
+            box-sizing: border-box;
+            background-color: rgb(165, 196, 196);
+        }
+
+        .main {
+            padding: 20px;
+            margin: auto;
+        }
+
+        #cartDiv {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            background-color: rgba(0, 0, 0, 0.644);
+            border-radius: 10px;
+            gap: 10px;
+            margin: 40px 70px;
+            padding: 20px 0px;
+            padding-left: 90px;
+            justify-content: center;
+            align-items: center
+        }
+
+        .header {
+            display: flex;
+            background-color: rgba(0, 0, 0, 0.644);
+            padding: 10px;
+            border-radius: 12px;
+            justify-content: space-around;
+            margin: 0px 70px;
+
+        }
+
+        .header>h1 {
+            color: rgb(201, 197, 197);
+            font-size: 22px;
+            font-weight: normal;
+        }
+
+        .header>button {
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            color: rgb(201, 197, 197);
+            font-size: 22px;
+        }
+
+        button:hover {
+            color: rgb(115, 152, 167);
+        }
+
+        a {
+            color: rgb(201, 197, 197);
+            font-size: 22px;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: rgb(115, 152, 167);
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>Cart Page</h1>
+            <button onclick="makePayment()">Make Payment</button>
+            <h1 id="total"></h1>
+        </div>
+        <div id="cartDiv"></div>
+
+    </div>
+
+    <script>
+        let cartData = JSON.parse(localStorage.getItem("cart"));
+        console.log(cartData);
+
+        let dataDiv = document.getElementById("cartDiv");
+        let total = 0;
+
+        cartData.forEach(function (shoes) {
+            console.log(shoes.brandName)
+            let div = document.createElement("div");
+
+
+            let p_name = document.createElement("p");
+            p_name.innerText = shoes.brandName;
+
+
+            let p_price = document.createElement("p");
+            p_price.innerText = shoes.price;
+
+            let image = document.createElement("img");
+            image.src = shoes.image;
+
+            div.append(image, p_name, p_price);
+            div.style.width = "60%"
+
+            dataDiv.append(div);
+
+            total = total + Number(shoes.price)
+        });
+
+        let total_h1 = document.getElementById("total");
+        total_h1.innerHTML = `Total Price - ${total} Rs`;
+
+        function makePayment() {
+            setTimeout(function () {
+                alert("Payment Successful")
+            }, 4000);
+        }
+
+    </script>
+</body>
+
+</html>
